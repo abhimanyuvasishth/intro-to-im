@@ -5,7 +5,6 @@ Servo myServo;
 void setup() {
   Serial.begin(9600); // set the baud rate
   myServo.attach(9);
-  Serial.println("READY");
   myServo.write(105);
 }
 
