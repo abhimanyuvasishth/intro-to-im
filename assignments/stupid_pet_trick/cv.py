@@ -1,6 +1,9 @@
 import cv2
 import time
 import serial
+import pygame
+
+pygame.init()
 
 # For facial recognition
 # https://github.com/shantnu/Webcam-Face-Detect
@@ -12,18 +15,21 @@ import serial
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 video_capture = cv2.VideoCapture(0)
 ser = serial.Serial('/dev/ttyUSB0', 9600)
-counter = 32
 flag = 0
 sleep_start = 0
+count = 0
 
 def send_message():
     ser.write(str(chr(55))) # Convert the decimal number to ASCII then send it to the Arduino
     print ser.readline() # Read the newest output from the Arduino
 
+    # sound from here: http://soundbible.com/769-Hello.html
+    pygame.mixer.music.load("hello.wav")
+    pygame.mixer.music.play()
+
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
-
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(
@@ -40,9 +46,8 @@ while True:
 
     # Display the resulting frame
     cv2.imshow('Video', frame)
-    # print len(faces)
 
-    if len(faces) > 0 and flag == 0:
+    if len(faces) > count and flag == 0:
         flag = 1
         if int(time.time()) - sleep_start >= 3:
             print "hello there "
@@ -51,7 +56,7 @@ while True:
             print "back too quickly "    
         sleep_start = int(time.time())
 
-    if len(faces) == 0 and flag == 1:
+    if len(faces) <= count and flag == 1:
         sleep_start = int(time.time())
         print "sleep start changed " + str(sleep_start)
         flag = 0
