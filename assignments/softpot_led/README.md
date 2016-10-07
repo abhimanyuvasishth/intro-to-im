@@ -1,4 +1,4 @@
-*Slide*
+**Slide**
 
 This assignment lights up a different LED in a row of LEDs based on the value output by a soft potentiometer. You slide your finger across the soft pot and the LEDs light up sequentially.
 
