@@ -2,7 +2,8 @@ class Star {
   float x;
   float y;
   float screenW;  
-  float radius = random(10);
+  float radius = random(5,10);
+  float fill = random(0,255);
   
   void move(){
     x += easing * (screenW/2-mouseX);
@@ -19,7 +20,7 @@ class Star {
   
   void display(){
     noStroke();
-    fill(255,255,0);
+    fill(255,255,fill);
     ellipse(x, y, radius, radius);
   }
   

@@ -1,12 +1,16 @@
+PImage bg;
+PImage rocket;  
 float screenW = 900; float screenH = 600;
 float x = screenW/2;
 float y;
 float easing = 0.05;
-int numStars = 30;
+int numStars = 50;
 Star[] stars = new Star[numStars];
 
 void setup() {
   size(900, 600); 
+  bg = loadImage("gradient.jpg");
+  //rocket = loadImage("rocket.gif");
   noStroke();
   for (int i = 0; i < numStars; i++){
     Star star = new Star(random(0-2*screenW, 4*screenW),random(screenH),screenW);
@@ -15,7 +19,8 @@ void setup() {
 }
 
 void draw() { 
-  background(51);
+  background(0,0,10);
+  background(bg);
   for (int i = 0; i < numStars; i++){
     stars[i].move();
     stars[i].check();
@@ -25,5 +30,6 @@ void draw() {
   float dy = targetY - y;
   y += dy * easing;
   fill(255);
-  ellipse(x, y, 66, 66);
+  //image(rocket, x-rocket.width/2,y-rocket.height/2, rocket.width, rocket.height);
+  ellipse(x,y,66,66);
 }
