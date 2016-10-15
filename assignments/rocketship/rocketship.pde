@@ -29,11 +29,14 @@ void draw() {
     stars[i].check();
     stars[i].display();
   }
+  
+  // Moves the ship up or down with easing following the mouse
   float targetY = mouseY;
   float dy = targetY - y;
   y += dy * easing;
   fill(255);
   
+  // Rotates the ship 180 depending on the position of the mouse
   if (mouseX < width/2){
     rotate(radians(180));
     translate(-width, -height);
@@ -42,5 +45,4 @@ void draw() {
   else {
     image(rocket, x-rocket.width/2,y-rocket.height/2, rocket.width, rocket.height);  
   }
-  //ellipse(x,y,66,66);
 }
