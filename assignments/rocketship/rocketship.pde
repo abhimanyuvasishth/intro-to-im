@@ -4,7 +4,7 @@ float screenW = 900; float screenH = 600;
 float x = screenW/2;
 float y = screenH/2;
 float easing = 0.05;
-int numStars = 50;
+int numStars = 1000;
 Star[] stars = new Star[numStars];
 
 void setup() {

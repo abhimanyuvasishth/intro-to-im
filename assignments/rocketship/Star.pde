@@ -2,7 +2,7 @@ class Star {
   float x;
   float y;
   float screenW;  
-  float radius = random(5,10);
+  float radius = random(0,2);
   float fill = random(0,255);
   
   void move(){
@@ -20,7 +20,7 @@ class Star {
   
   void display(){
     noStroke();
-    fill(255,255,fill);
+    fill(255,255,255);
     ellipse(x, y, radius, radius);
   }
   
