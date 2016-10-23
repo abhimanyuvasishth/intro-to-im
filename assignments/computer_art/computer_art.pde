@@ -6,7 +6,10 @@ void setup(){
 }
 
 void draw(){
+  noStroke();
+  //fill(random(255), random(255), random(255));
   fill(random(255));
   float rad = random(100);
-  ellipse(random(sizeX),random(sizeY),rad,rad);  
+  ellipse(random(sizeX),random(sizeY),rad,rad);
+  ellipse(mouseX+random(-20,20),mouseY+random(-20,20),rad,rad);
 }
