@@ -1,31 +1,28 @@
 float size = 640;
 int squares = 20;
-float col = 0;
+float boxSize = size/squares;
+float buffer = size/(squares*2);
+float radBuffer = 10/squares;
+float outerRad = size/(squares)-radBuffer;
 
 void setup(){
   background(255);
-  //background(0);
   size(640,640);
+  stroke(0);
+  noFill();
+  // Drawing the outer frame of the circles
+  for (int i = 0; i < squares; i++){
+    for (int j = 0; j < squares; j++){
+      ellipse(boxSize*i+buffer, boxSize*j+buffer, outerRad, outerRad);
+    }
+  }
 }
 
 void draw(){
-  //noStroke();
-    //background(255);
-  for (int i = 0; i < squares; i ++){
-    for (int j = 0; j < squares; j ++){  
-      int fill = (int)Math.floor(2*random(1));
-      //fill(fill*255);
-      noFill();
-      //fill(random(255));
-      float xVal = size/squares*i;
-      float yVal = size/squares*j;
-      float buffer = size/(squares*2);
-      float radBuffer = 100/squares;
-      float rad = random(size/(squares*2), size/(squares)-radBuffer);
-      float rectRad = random(size/(squares));
-      //ellipse(xVal+buffer, yVal+buffer, rad, rad);
-      rect(xVal+buffer-rad/2, yVal+buffer-rad/2, rad, rad);
-      rect(xVal+buffer-rectRad/2, yVal+buffer-rectRad/2, rectRad, rectRad);
-    }
-  }
+  stroke(random(255));
+  int i = int(random(squares+1));
+  int j = int(random(squares+1));
+  // Radius is dynamically generated now
+  float rad = random(size/(squares)-radBuffer);
+  ellipse(boxSize*i+buffer, boxSize*j+buffer, rad, rad);
 }
