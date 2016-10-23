@@ -8,7 +8,6 @@ float outerRad = size/(squares)-radBuffer;
 void setup(){
   background(255);
   size(640,640);
-  noFill();
   // Drawing the outer frame of the circles
   for (int i = 0; i < squares; i++){
     for (int j = 0; j < squares; j++){
