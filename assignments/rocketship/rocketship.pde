@@ -9,10 +9,8 @@ Star[] stars = new Star[numStars];
 
 void setup() {
   size(900, 600); 
-  bg = loadImage("gradient.jpg");  
-  
-  // I got the image of the rocket from here: 
-  // http://pics-about-space.com/space-shuttles-clipart?p=1
+  bg = loadImage("gradient.jpg");   
+  // Rocket image: http://pics-about-space.com/space-shuttles-clipart?p=1
   rocket = loadImage("rocket.png");
   
   for (int i = 0; i < numStars; i++){
@@ -37,6 +35,7 @@ void draw() {
   fill(255);
   
   // Rotates the ship 180 depending on the position of the mouse
+  // It also translates to the center since processing rotates about the (0,0) point
   if (mouseX < width/2){
     rotate(radians(180));
     translate(-width, -height);
