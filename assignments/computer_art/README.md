@@ -4,7 +4,7 @@ Creating computer art inspired by Vera Molnar.
 
 Here is the inspiration.
 
-![Alt](veramolnar1.jpg "molnar")
+![Alt](veramolnar.jpg "molnar")
 
 And here is my rendition.
 
