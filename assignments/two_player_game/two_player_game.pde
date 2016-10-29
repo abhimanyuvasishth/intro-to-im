@@ -1,18 +1,21 @@
 float easing = 0.05;
 boolean up = false, down = false, w = false, s = false;
-boolean gameOver = true, readyUp = false, readyDown = false, getReadyGo = false;
+boolean gameOver = true;
+boolean readyUp = false, readyDown = false, getReadyGo = false;
 Ship ship1;
 Ship ship2;
+Ship[] ships;
 int scoreUp = 0;
 int scoreDown = 0;
-int numStars = 200;
+int numStars = 400;
 int readyTime;
 Star[] stars = new Star[numStars];
 
 void setup(){
   size(600,600);
-  ship1 = new Ship(1);
-  ship2 = new Ship(2);
+  ship1 = new Ship("up");
+  ship2 = new Ship("down");
+  ships = new Ship[]{ship1,ship2};
   for (int i = 0; i < numStars; i=i+2){
     float xPos = random(10*width);
     float yPos = random(height/2);
@@ -80,6 +83,11 @@ void getReadyGo(){
     getReadyGo = false;
     gameOver = false;
   }
+}
+
+void endGame(Ship loser){
+  if (loser.player == "up")println("winner = down");
+  else println("winner = up");
 }
 
 void keyPressed(){

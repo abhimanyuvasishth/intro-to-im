@@ -2,13 +2,17 @@ class Ship{
   float y;
   float ySpeed;
   float radius;
-  float player;
+  String player;
   float maxY;
   float minY;
+  float collisionTime;
+  int numCollisions;
   
-  Ship(float player){
+  Ship(String player){
     this.player = player;
-    if (player == 1){
+    this.collisionTime = 0;
+    this.numCollisions = 0;
+    if (player == "down"){
       this.y = 0.75*height;
       this.maxY = height;
       this.minY = 0.5*height;
@@ -23,8 +27,18 @@ class Ship{
   }
   
   void display(){
-    fill(255,255,255);
+    if (millis() > this.collisionTime) fill(255,255,255);
+    else fill(255,0,0);
     ellipse(width/2, this.y, this.radius, this.radius);
+  }
+  
+  void collision(){
+    this.collisionTime = millis()+300; 
+    this.numCollisions++;
+    if (this.numCollisions == 10){
+      gameOver = true;
+      endGame(this);
+    }
   }
   
   void move(String direction){
