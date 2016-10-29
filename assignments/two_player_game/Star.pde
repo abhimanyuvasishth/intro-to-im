@@ -5,11 +5,11 @@ class Star {
   float speed;
   
   // The constructor
-  Star(float x, float y, float radius){
+  Star(float x, float y, float radius, float speed){
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.speed = random(0.5,3);
+    this.speed = speed;
   }
   
   void move(){
