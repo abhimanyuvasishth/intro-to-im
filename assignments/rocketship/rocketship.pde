@@ -1,20 +1,19 @@
 PImage bg;
 PImage rocket;  
-float screenW = 900; float screenH = 600;
-float x = screenW/2;
-float y = screenH/2;
+float x,y;
 float easing = 0.05;
 int numStars = 1000;
 Star[] stars = new Star[numStars];
 
 void setup() {
-  size(900, 600); 
+  size(900, 600);
   bg = loadImage("gradient.jpg");   
   // Rocket image: http://pics-about-space.com/space-shuttles-clipart?p=1
   rocket = loadImage("rocket.png");
-  
+  x = width/2;
+  y = height/2;
   for (int i = 0; i < numStars; i++){
-    Star star = new Star(random(0-2*screenW, 4*screenW),random(screenH),screenW);
+    Star star = new Star(random(0-2*width, 4*width),random(height));
     stars[i] = star;
   }
 }
