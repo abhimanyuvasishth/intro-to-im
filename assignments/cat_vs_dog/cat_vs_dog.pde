@@ -1,14 +1,12 @@
 import processing.sound.*;
 
 float easing = 0.05;
-
 boolean up = false, down = false, w = false, s = false;
 boolean gameOver = true, displayWinner = false;
 boolean readyUp = false, readyDown = false, getReadyGo = false;
 int readyTime, finishTime;
 
 PImage cat, dog, bigCat, bigDog;
-
 Animal animal1, animal2, winner;
 Animal[] animals;
 
@@ -45,18 +43,20 @@ void draw(){
     if (readyUp && !getReadyGo) fill(0,255,0);
     else fill(0);
     rect(0,0,width,height*0.5);
-    image(cat,width*0.5-cat.width*0.5,height*0.25-cat.height*0.5);
     
     if (readyDown && !getReadyGo) fill(0,255,0);
     else fill(0);
     rect(0,height*0.5,width,height);
-    image(dog,width*0.5-dog.width*0.5,height*0.75-dog.height*0.5);
     
     if (readyUp && readyDown && !getReadyGo){
       readyTime = millis();
       getReadyGo = true;
     }
     if (getReadyGo) getReadyGo();
+    else {
+      image(dog,width*0.5-dog.width*0.5,height*0.75-dog.height*0.5);
+      image(cat,width*0.5-cat.width*0.5,height*0.25-cat.height*0.5);
+    }
   }
   else {
     for (int i = 0; i < numStars; i++){
@@ -78,28 +78,26 @@ void draw(){
 
 void getReadyGo(){
   noStroke();
-  if (millis() < readyTime + 1000){
-    fill(255,255,0);
-    ellipse(width*0.5,height*0.25,150,150);
-    ellipse(width*0.5,height*0.75,150,150);
+  int textSize = 100;
+  textSize(textSize);
+  for (int i = 1; i < 4; i++){
+    if (millis() < readyTime + i*1000){
+      fill(random(255));
+      ellipse(width*0.5,height*0.25,150,150);
+      ellipse(width*0.5,height*0.75,150,150);
+      fill(0);
+      text(str(4-i), width*0.5 - textSize/3.5,height*0.25 + textSize/3.5);
+      text(str(4-i), width*0.5 - textSize/3.5,height*0.75 + textSize/3.5);
+      break;
+    }
   }
-  else if (millis() < readyTime + 2000){
-    fill(255,0,255);
-    ellipse(width*0.5,height*0.25,150,150);
-    ellipse(width*0.5,height*0.75,150,150);
-  }
-  else if (millis() < readyTime + 3000){
-    fill(0,255,255);
-    ellipse(width*0.5,height*0.25,150,150);
-    ellipse(width*0.5,height*0.75,150,150);
-  }
-  else {
+  if (millis() > readyTime + 3000){
     createStars();
     gameOver = false;
     getReadyGo = false;
     readyUp = false;
     readyDown = false;
-  } 
+  }
 }
 
 void createStars(){
@@ -122,6 +120,7 @@ void endGame(Animal loser){
 
   for (Animal animal : animals){
     animal.numCollisions = 0;
+    animal.y = (animal.player == "Cat") ? 0.25*height : 0.75* height;
     if (animal.player != loser.player) winner = animal;
   }
   winner.score++;
