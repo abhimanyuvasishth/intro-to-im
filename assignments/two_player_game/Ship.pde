@@ -18,7 +18,7 @@ class Ship{
     this.radius = 30;
     this.img = loadImage("square" + player + ".png");
     this.img.resize((int)(radius),(int)(radius));
-    this.lives = loadImage("heart.png");
+    this.lives = loadImage("data/heart.png");
     this.lives.resize((int)(radius/2),(int)(radius/2));
     this.sound = new SoundFile(p, this.player + ".mp3");
     if (player == "Dog"){

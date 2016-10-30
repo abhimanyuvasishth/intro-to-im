@@ -18,8 +18,8 @@ void setup(){
   size(600,600);
   ship1 = new Ship("Cat", this);
   ship2 = new Ship("Dog", this);
-  cat = loadImage("squareCat.png");
-  dog = loadImage("squareDog.png");
+  cat = loadImage("data/squareCat.png");
+  dog = loadImage("data/squareDog.png");
   cat.resize((int)(height/4),(int)(height/4));
   dog.resize((int)(height/4),(int)(height/4));
   ships = new Ship[]{ship1,ship2};
