@@ -32,6 +32,7 @@ class Star {
   // Displays the star
   void display(){
     noStroke();
+    noStroke();
     fill(255,255,255);
     ellipse(x, y, radius, radius);
   }

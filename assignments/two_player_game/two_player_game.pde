@@ -1,23 +1,30 @@
+import processing.sound.*;
 float easing = 0.05;
 boolean up = false, down = false, w = false, s = false;
 boolean gameOver = true;
 boolean readyUp = false, readyDown = false, getReadyGo = false;
+PImage cat;
+PImage dog;
 Ship ship1;
 Ship ship2;
 Ship[] ships;
 int scoreUp = 0;
 int scoreDown = 0;
-int numStars = 400;
+int numStars = 800;
 int readyTime;
 Star[] stars = new Star[numStars];
 
 void setup(){
   size(600,600);
-  ship1 = new Ship("up");
-  ship2 = new Ship("down");
+  ship1 = new Ship("Cat", this);
+  ship2 = new Ship("Dog", this);
+  cat = loadImage("squareCat.png");
+  dog = loadImage("squareDog.png");
+  cat.resize((int)(height/4),(int)(height/4));
+  dog.resize((int)(height/4),(int)(height/4));
   ships = new Ship[]{ship1,ship2};
   for (int i = 0; i < numStars; i=i+2){
-    float xPos = random(10*width);
+    float xPos = random(width,11*width);
     float yPos = random(height/2);
     float rad = random(1,3);
     float speed = random(0.5,3);
@@ -31,16 +38,20 @@ void setup(){
 void draw(){
   background(0);
   stroke(255);
+  strokeWeight(3);
   line(0,height/2,width,height/2);
   if (gameOver){
+    noStroke();
     if (w || s) readyUp = true;
     if (up || down) readyDown = true;
     if (readyUp) fill(255,0,0);
-    else fill(255,255,255);
-    ellipse(width*0.5,height*0.25,100,100);
+    //else fill(255,255,255);
+    //ellipse(width*0.5,height*0.25,100,100);
+    image(cat,width*0.5-cat.width*0.5,height*0.25-cat.height*0.5);
     if (readyDown) fill(0,255,0);
-    else fill(255,255,255);
-    ellipse(width*0.5,height*0.75,100,100);
+    //else fill(255,255,255);
+    //ellipse(width*0.5,height*0.75,100,100);
+    image(dog,width*0.5-dog.width*0.5,height*0.75-dog.height*0.5);
     if (readyUp && readyDown){
       readyTime = millis();
       getReadyGo = true;
@@ -64,6 +75,7 @@ void draw(){
 }
 
 void getReadyGo(){
+  noStroke();
   if (millis() < readyTime + 1000){
     fill(255,255,0);
     ellipse(width*0.5,height*0.25,150,150);
@@ -80,14 +92,20 @@ void getReadyGo(){
     ellipse(width*0.5,height*0.75,150,150);
   }
   else {
-    getReadyGo = false;
     gameOver = false;
+    getReadyGo = false;
   }
+  
 }
 
 void endGame(Ship loser){
-  if (loser.player == "up")println("winner = down");
-  else println("winner = up");
+  gameOver = true;
+  Ship winner = loser;
+  for (Ship ship : ships){
+    ship.numCollisions = 0;
+    if (ship.player != loser.player) winner = ship;
+  }
+  println("loser: " + loser.player + " | winner: " + winner.player); 
 }
 
 void keyPressed(){
