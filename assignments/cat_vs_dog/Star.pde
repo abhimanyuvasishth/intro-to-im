@@ -17,14 +17,14 @@ class Star {
   void move(){
     this.x -= speed;
     if (Math.abs(this.x-width/2) <= 15 && this.canCollide){
-      if (this.y < height/2) checkCollision(ships[0]);
-      else checkCollision(ships[1]);  
+      if (this.y < height/2) checkCollision(animals[0]);
+      else checkCollision(animals[1]);  
     }
   }
   
-  void checkCollision(Ship ship){
-    if (Math.abs(ship.y - this.y) <= ship.radius/2){
-      ship.collision();  
+  void checkCollision(Animal animal){
+    if (Math.abs(animal.y - this.y) <= animal.radius/2){
+      animal.collision();  
       this.canCollide = false;
     }
   }

@@ -9,8 +9,8 @@ int readyTime, finishTime;
 
 PImage cat, dog, bigCat, bigDog;
 
-Ship ship1, ship2, winner;
-Ship[] ships;
+Animal animal1, animal2, winner;
+Animal[] animals;
 
 int numStars = 800;
 Star[] stars = new Star[numStars];
@@ -18,8 +18,8 @@ Star[] stars = new Star[numStars];
 void setup(){
   size(600,600);
   
-  ship1 = new Ship("Cat", this);
-  ship2 = new Ship("Dog", this);
+  animal1 = new Animal("Cat", this);
+  animal2 = new Animal("Dog", this);
   
   cat = loadImage("data/squareCat.png");
   bigCat = loadImage("data/squareCat.png");
@@ -30,7 +30,7 @@ void setup(){
   bigCat.resize((int)(height/2),(int)(height/2));
   bigDog.resize((int)(height/2),(int)(height/2));
   
-  ships = new Ship[]{ship1,ship2};
+  animals = new Animal[]{animal1,animal2};
   finishTime = 0;
 }
 
@@ -63,12 +63,12 @@ void draw(){
       stars[i].move();
       stars[i].display();
     }
-    ship1.display();
-    ship2.display();
-    if (w) ship1.move("up");
-    if (s) ship1.move("down");
-    if (up) ship2.move("up");
-    if (down) ship2.move("down");
+    animal1.display();
+    animal2.display();
+    if (w) animal1.move("up");
+    if (s) animal1.move("down");
+    if (up) animal2.move("up");
+    if (down) animal2.move("down");
   }
   stroke(255);
   strokeWeight(3);
@@ -115,18 +115,18 @@ void createStars(){
   }  
 }
 
-void endGame(Ship loser){
+void endGame(Animal loser){
   gameOver = true;
   displayWinner = true;
   finishTime = millis() + 3000;
 
-  for (Ship ship : ships){
-    ship.numCollisions = 0;
-    if (ship.player != loser.player) winner = ship;
+  for (Animal animal : animals){
+    animal.numCollisions = 0;
+    if (animal.player != loser.player) winner = animal;
   }
   winner.score++;
   println(winner.player + " WINS!!!");
-  println("CAT: " + ships[0].score + " | DOG: " + ships[1].score);
+  println("CAT: " + animals[0].score + " | DOG: " + animals[1].score);
   fill(0,0,200);
 }
 

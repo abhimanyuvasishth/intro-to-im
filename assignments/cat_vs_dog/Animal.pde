@@ -1,4 +1,4 @@
-class Ship{
+class Animal{
   float y;
   float ySpeed;
   float radius;
@@ -11,7 +11,7 @@ class Ship{
   int score;
   SoundFile sound;
   
-  Ship(String player, PApplet p){
+  Animal(String player, PApplet p){
     this.player = player;
     this.collisionTime = 0;
     this.numCollisions = 0;
