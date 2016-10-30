@@ -3,12 +3,12 @@ class Ship{
   float ySpeed;
   float radius;
   String player;
-  float maxY;
-  float minY;
+  float maxY, minY;
   float collisionTime;
   int numCollisions;
   PImage img;
   PImage lives;
+  int score;
   SoundFile sound;
   
   Ship(String player, PApplet p){
@@ -33,6 +33,7 @@ class Ship{
       this.minY = 0;
     }
     this.ySpeed = 2.5;
+    this.score = 0;
   }
   
   void display(){
