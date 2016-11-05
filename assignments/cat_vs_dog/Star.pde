@@ -4,7 +4,8 @@ class Star {
   float radius;
   float speed;
   boolean canCollide;
-  
+  PImage img;
+  String[] imgNames = new String[]{"nuclear.jpg","stopsign.jpg","flattire.png"};
   // The constructor
   Star(float x, float y, float radius, float speed){
     this.x = x;
@@ -12,6 +13,9 @@ class Star {
     this.radius = radius;
     this.speed = speed;
     this.canCollide = true;
+    String imgName = imgNames[(int)random(3)];
+    this.img = loadImage("data/" + imgName); 
+    this.img.resize((int)(20),(int)(20));
   }
   
   void move(){
@@ -19,6 +23,9 @@ class Star {
     if (Math.abs(this.x-width/2) <= 15 && this.canCollide){
       if (this.y < height/2) checkCollision(animals[0]);
       else checkCollision(animals[1]);  
+    }
+    else if (this.x < 0){
+      this.x = 5*width;  
     }
   }
   
@@ -33,7 +40,8 @@ class Star {
   void display(){
     noStroke();
     noStroke();
-    fill(255,255,255);
+    fill(0);
     ellipse(x, y, radius, radius);
+    image(img,this.x-img.width/2,this.y-img.height/2);
   }
 }

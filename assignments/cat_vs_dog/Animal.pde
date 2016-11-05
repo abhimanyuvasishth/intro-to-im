@@ -15,11 +15,11 @@ class Animal{
     this.player = player;
     this.collisionTime = 0;
     this.numCollisions = 0;
-    this.radius = 30;
+    this.radius = 60;
     this.img = loadImage("square" + player + ".png");
     this.img.resize((int)(radius),(int)(radius));
     this.lives = loadImage("data/heart.png");
-    this.lives.resize((int)(radius/2),(int)(radius/2));
+    this.lives.resize((int)(radius/4),(int)(radius/4));
     this.sound = new SoundFile(p, this.player + ".mp3");
     if (player == "Dog"){
       this.y = 0.75*height;
@@ -37,8 +37,7 @@ class Animal{
   }
   
   void display(){
-    stroke(253,231,129);
-    strokeWeight(1);
+    noStroke();
     if (millis() > this.collisionTime) noFill();
     else fill(255,0,0,100);
     ellipse(width/2, this.y, this.radius, this.radius);

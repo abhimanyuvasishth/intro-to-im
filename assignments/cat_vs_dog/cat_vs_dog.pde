@@ -2,15 +2,19 @@ import processing.sound.*;
 
 float easing = 0.05;
 boolean up = false, down = false, w = false, s = false;
+boolean right = false, left = false, a = false, d = false;
 boolean gameOver = true, displayWinner = false;
 boolean readyUp = false, readyDown = false, getReadyGo = false;
 int readyTime, finishTime;
 
-PImage cat, dog, bigCat, bigDog;
+boolean intro = true;
+PImage cat, dog, bigCat, bigDog, bg;
+PImage[] cats = new PImage[5];
+PImage[] dogs = new PImage[5];
 Animal animal1, animal2, winner;
 Animal[] animals;
-
-int numStars = 800;
+int countUp = 0, countDown = 0;
+int numStars = 100;
 Star[] stars = new Star[numStars];
 
 void setup(){
@@ -19,49 +23,54 @@ void setup(){
   animal1 = new Animal("Cat", this);
   animal2 = new Animal("Dog", this);
   
+  bg = loadImage("data/background600.jpg");
   cat = loadImage("data/squareCat.png");
   bigCat = loadImage("data/squareCat.png");
   dog = loadImage("data/squareDog.png");
   bigDog = loadImage("data/squareDog.png");
+  
+  cats[0] = loadImage("data/deskCat600Start.png");
+  cats[1] = loadImage("data/CatToBoss600_1.png");
+  cats[2] = loadImage("data/BossToCat600_1.png");
+  cats[3] = loadImage("data/BossToCat600_2.png");
+  cats[4] = loadImage("data/CatToBoss600_2.png");
+  
+  dogs[0] = loadImage("data/deskDog600Start.png");
+  dogs[1] = loadImage("data/DogToBoss600_1.png");
+  dogs[2] = loadImage("data/BossToDog600_1.png");
+  dogs[3] = loadImage("data/BossToDog600_2.png");
+  dogs[4] = loadImage("data/DogToBoss600_2.png");
+  
   cat.resize((int)(height/4),(int)(height/4));
   dog.resize((int)(height/4),(int)(height/4));
   bigCat.resize((int)(height/2),(int)(height/2));
   bigDog.resize((int)(height/2),(int)(height/2));
-  
+    
   animals = new Animal[]{animal1,animal2};
   finishTime = 0;
 }
 
 void draw(){
-  background(0);
-  
-  if (gameOver){
-    noStroke();
-    if ((w || s) && !displayWinner) readyUp = true;
-    if ((up || down) && !displayWinner) readyDown = true;
-    
-    if (readyUp && !getReadyGo) fill(0,255,0);
-    else fill(0);
-    rect(0,0,width,height*0.5);
-    
-    if (readyDown && !getReadyGo) fill(0,255,0);
-    else fill(0);
-    rect(0,height*0.5,width,height);
-    
-    if (readyUp && readyDown && !getReadyGo){
-      readyTime = millis();
+  background(bg);
+  if (intro){
+    image(cats[countUp],0,0);
+    image(dogs[countDown],0,height/2);
+    if (countDown == 4 && countUp == 4){
+      intro = false;
       getReadyGo = true;
-    }
-    if (getReadyGo) getReadyGo();
-    else {
-      image(dog,width*0.5-dog.width*0.5,height*0.75-dog.height*0.5);
-      image(cat,width*0.5-cat.width*0.5,height*0.25-cat.height*0.5);
+    } 
+  }
+  else if (gameOver && !intro){
+    if (getReadyGo) {
+      getReadyGo();
     }
   }
   else {
     for (int i = 0; i < numStars; i++){
+      if (stars[i].x < width && stars[i].x > 0){
+        stars[i].display();
+      }
       stars[i].move();
-      stars[i].display();
     }
     animal1.display();
     animal2.display();
@@ -78,33 +87,18 @@ void draw(){
 
 void getReadyGo(){
   noStroke();
-  int textSize = 100;
-  textSize(textSize);
-  for (int i = 1; i < 4; i++){
-    if (millis() < readyTime + i*1000){
-      fill(random(255));
-      ellipse(width*0.5,height*0.25,150,150);
-      ellipse(width*0.5,height*0.75,150,150);
-      fill(0);
-      text(str(4-i), width*0.5 - textSize/3.5,height*0.25 + textSize/3.5);
-      text(str(4-i), width*0.5 - textSize/3.5,height*0.75 + textSize/3.5);
-      break;
-    }
-  }
-  if (millis() > readyTime + 3000){
-    createStars();
-    gameOver = false;
-    getReadyGo = false;
-    readyUp = false;
-    readyDown = false;
-  }
+  createStars();
+  gameOver = false;
+  getReadyGo = false;
+  readyUp = false;
+  readyDown = false;
 }
 
 void createStars(){
   for (int i = 0; i < numStars; i=i+2){
-    float xPos = random(width,11*width);
-    float yPos = random(height/2);
-    float rad = random(1,3);
+    float xPos = random(width,5*width);
+    float yPos = random(10,height/2-10);
+    float rad = 10;
     float speed = random(0.5,3);
     Star starUp = new Star(xPos,yPos,rad, speed);
     Star starDown = new Star(xPos,yPos+height/2,rad, speed);
@@ -116,6 +110,9 @@ void createStars(){
 void endGame(Animal loser){
   gameOver = true;
   displayWinner = true;
+  countUp = 0;
+  countDown = 0;
+  intro = true;
   finishTime = millis() + 3000;
 
   for (Animal animal : animals){
@@ -150,13 +147,27 @@ void displayWinner(){
 void keyPressed(){
   if (keyCode == UP) up = true;
   if (keyCode==DOWN) down = true;
+  if (keyCode==RIGHT) right = true;
   if (key=='w') w=true;
   if (key=='s') s=true;
+  if (key=='d') d=true;
 }
 
 void keyReleased(){
   if (keyCode == UP) up = false;
   if (keyCode==DOWN) down = false;
+  if (keyCode==RIGHT) {
+    right = false;
+    if (countDown < 4){
+      countDown++;
+    }
+  }
   if (key=='w') w=false;
   if (key=='s') s=false;
+  if (key=='d') {
+    d=false;
+    if (countUp < 4){
+      countUp++;
+    }
+  }
 }
