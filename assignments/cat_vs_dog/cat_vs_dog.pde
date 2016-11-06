@@ -3,22 +3,23 @@ import processing.sound.*;
 float easing = 0.05;
 boolean up = false, down = false, w = false, s = false;
 boolean right = false, left = false, a = false, d = false;
-boolean gameOver = true, displayWinner = false;
-boolean readyUp = false, readyDown = false, getReadyGo = false;
+boolean gameOver = true, displayWinner = false, getReadyGo = false, intro = true;
 int readyTime, finishTime;
 
-boolean intro = true;
 PImage cat, dog, bigCat, bigDog, bg;
 PImage[] cats = new PImage[5];
 PImage[] dogs = new PImage[5];
+
 Animal winner;
 Animal[] animals = new Animal[2];
+
 int countUp = 0, countDown = 0;
+
 int numStars = 100;
 Star[] stars = new Star[numStars];
 
 void setup(){
-  size(600,600);
+  size(1200,1200);
   
   animals[0] = new Animal("Cat", this);
   animals[1] = new Animal("Dog", this);
@@ -41,6 +42,14 @@ void setup(){
   dogs[2] = loadImage("data/BossToDog600_1.png");
   dogs[3] = loadImage("data/BossToDog600_2.png");
   dogs[4] = loadImage("data/DogToBoss600_2.png");
+  
+  for (PImage dog: dogs){
+    dog.resize((int)(width),(int)(height/2));  
+  }
+  
+  for (PImage cat: cats){
+    cat.resize((int)(width),(int)(height/2));  
+  }
   
   cat.resize((int)(height/4),(int)(height/4));
   dog.resize((int)(height/4),(int)(height/4));
@@ -93,8 +102,6 @@ void getReadyGo(){
   createStars();
   gameOver = false;
   getReadyGo = false;
-  readyUp = false;
-  readyDown = false;
 }
 
 void createStars(){
@@ -115,7 +122,7 @@ void endGame(Animal loser){
   countUp = 0;
   countDown = 0;
   intro = true;
-  finishTime = millis() + 3000;
+  finishTime = millis();
 
   for (Animal animal : animals){
     animal.numCollisions = 0;
@@ -125,11 +132,10 @@ void endGame(Animal loser){
   winner.score++;
   println(winner.player + " WINS!!!");
   println("CAT: " + animals[0].score + " | DOG: " + animals[1].score);
-  fill(0,0,200);
 }
 
 void displayWinner(){
-  if (millis() < finishTime){
+  if (millis() < finishTime + 1500){
     noStroke();
     fill(random(0,85), random(85,170), random(175,255));
     rect(0,0,width,height);
@@ -141,7 +147,6 @@ void displayWinner(){
     }
   }
   else {
-    fill(0);
     displayWinner = false;    
   }
 }
