@@ -15,17 +15,17 @@ class Animal{
     this.player = player;
     this.collisionTime = 0;
     this.numCollisions = 0;
-    this.radius = 60;
+    this.radius = width/10;
     this.img = loadImage("square" + player + ".png");
     this.img.resize((int)(radius),(int)(radius));
     this.lives = loadImage("data/heart.png");
     this.lives.resize((int)(radius/4),(int)(radius/4));
-    this.sound = new SoundFile(p, this.player + ".mp3");
+    //this.sound = new SoundFile(p, this.player + ".mp3");
     if (player == "Dog"){
       this.y = 0.75*height;
       this.maxY = height;
       this.minY = 0.5*height;
-      this.sound.amp(0.3);
+      //this.sound.amp(0.3);
     }
     else {
       this.y = 0.25*height;
@@ -43,8 +43,15 @@ class Animal{
     ellipse(width/2, this.y, this.radius, this.radius);
     image(img,width/2-img.width/2,this.y-img.height/2);
     for (int i = 0; i < 10-this.numCollisions; i++){
-        image(lives, 20, maxY - height/30 - (i)*height/20);
-    }  
+      image(lives, 20, maxY - height/30 - (i)*height/20);
+      // REVERSE HEARTS
+      //if (this.player == "Dog"){
+        //image(lives, 20, maxY - height/30 - (i)*height/20);  
+      //}
+      //else {
+        //image(lives, width-20, minY +  (i)*height/20);  
+      //}
+    }    
   }
   
   void collision(){
@@ -53,7 +60,7 @@ class Animal{
     if (this.numCollisions == 10){
       endGame(this);
     }
-    else this.sound.play();
+    //else this.sound.play();
   }
   
   void move(String direction){

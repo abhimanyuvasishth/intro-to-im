@@ -11,8 +11,8 @@ boolean intro = true;
 PImage cat, dog, bigCat, bigDog, bg;
 PImage[] cats = new PImage[5];
 PImage[] dogs = new PImage[5];
-Animal animal1, animal2, winner;
-Animal[] animals;
+Animal winner;
+Animal[] animals = new Animal[2];
 int countUp = 0, countDown = 0;
 int numStars = 100;
 Star[] stars = new Star[numStars];
@@ -20,10 +20,11 @@ Star[] stars = new Star[numStars];
 void setup(){
   size(600,600);
   
-  animal1 = new Animal("Cat", this);
-  animal2 = new Animal("Dog", this);
+  animals[0] = new Animal("Cat", this);
+  animals[1] = new Animal("Dog", this);
   
   bg = loadImage("data/background600.jpg");
+  bg.resize(width,height);
   cat = loadImage("data/squareCat.png");
   bigCat = loadImage("data/squareCat.png");
   dog = loadImage("data/squareDog.png");
@@ -45,8 +46,7 @@ void setup(){
   dog.resize((int)(height/4),(int)(height/4));
   bigCat.resize((int)(height/2),(int)(height/2));
   bigDog.resize((int)(height/2),(int)(height/2));
-    
-  animals = new Animal[]{animal1,animal2};
+ 
   finishTime = 0;
 }
 
@@ -72,12 +72,15 @@ void draw(){
       }
       stars[i].move();
     }
-    animal1.display();
-    animal2.display();
-    if (w) animal1.move("up");
-    if (s) animal1.move("down");
-    if (up) animal2.move("up");
-    if (down) animal2.move("down");
+    animals[0].display();
+    animals[1].display();
+    if (w) animals[0].move("up");
+    if (s) animals[0].move("down");
+    // FLIP ANIMAL MOVEMENT
+    //if (w) animals[0].move("down");
+    //if (s) animals[0].move("up");
+    if (up) animals[1].move("up");
+    if (down) animals[1].move("down");
   }
   stroke(255);
   strokeWeight(3);
@@ -98,10 +101,9 @@ void createStars(){
   for (int i = 0; i < numStars; i=i+2){
     float xPos = random(width,5*width);
     float yPos = random(10,height/2-10);
-    float rad = 10;
-    float speed = random(0.5,3);
-    Star starUp = new Star(xPos,yPos,rad, speed);
-    Star starDown = new Star(xPos,yPos+height/2,rad, speed);
+    float speed = random(width/1200,width/200);
+    Star starUp = new Star(xPos,yPos, speed);
+    Star starDown = new Star(xPos,yPos+height/2, speed);
     stars[i] = starUp;
     stars[i+1] = starDown;
   }  
