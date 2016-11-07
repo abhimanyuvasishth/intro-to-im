@@ -1,0 +1,11 @@
+1. First screen purple on right arrow/d
+2. Before game starts - say dodge obstacles or ready
+3. End game - show text + winner/loser
+4. Size
+5. Rotate
+	a. Animal Picture
+	b. Star motion
+	c. Star check
+	4. Up & down
+	5. Flip hearts
+	6. Flip intro pictures
