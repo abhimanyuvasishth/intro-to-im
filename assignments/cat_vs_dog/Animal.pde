@@ -18,20 +18,21 @@ class Animal{
     this.radius = width/10;
     this.img = loadImage("square" + player + ".png");
     this.img.resize((int)(radius),(int)(radius));
-    this.lives = loadImage("data/heart.png");
-    this.lives.resize((int)(radius/4),(int)(radius/4));
     //this.sound = new SoundFile(p, this.player + ".mp3");
     if (player == "Dog"){
       this.y = 0.75*height;
       this.maxY = height;
       this.minY = 0.5*height;
+      this.lives = loadImage("data/heart.png");
       //this.sound.amp(0.3);
     }
     else {
       this.y = 0.25*height;
       this.maxY = 0.5*height;
       this.minY = 0;
+      this.lives = loadImage("data/heartFlipped.png");
     }
+        this.lives.resize((int)(radius/4),(int)(radius/4));
     this.ySpeed = 2.5;
     this.score = 0;
   }
@@ -43,14 +44,14 @@ class Animal{
     ellipse(width/2, this.y, this.radius, this.radius);
     image(img,width/2-img.width/2,this.y-img.height/2);
     for (int i = 0; i < 10-this.numCollisions; i++){
-      image(lives, 20, maxY - height/30 - (i)*height/20);
-      // REVERSE HEARTS
-      //if (this.player == "Dog"){
-        //image(lives, 20, maxY - height/30 - (i)*height/20);  
-      //}
-      //else {
-        //image(lives, width-20, minY +  (i)*height/20);  
-      //}
+      //image(lives, 20, maxY - height/30 - (i)*height/20);
+       //REVERSE HEARTS
+      if (this.player == "Dog"){
+        image(lives, 50, maxY - height/30 - (i)*height/20);  
+      }
+      else {
+        image(lives, width-50, minY +  (i)*height/20);  
+      }
     }    
   }
   

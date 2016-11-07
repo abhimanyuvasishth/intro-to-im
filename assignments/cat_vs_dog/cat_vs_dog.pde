@@ -83,11 +83,11 @@ void draw(){
     }
     animals[0].display();
     animals[1].display();
-    if (w) animals[0].move("up");
-    if (s) animals[0].move("down");
+    //if (w) animals[0].move("up");
+    //if (s) animals[0].move("down");
     // FLIP ANIMAL MOVEMENT
-    //if (w) animals[0].move("down");
-    //if (s) animals[0].move("up");
+    if (w) animals[0].move("down");
+    if (s) animals[0].move("up");
     if (up) animals[1].move("up");
     if (down) animals[1].move("down");
   }

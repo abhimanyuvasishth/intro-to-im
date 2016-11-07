@@ -10,16 +10,16 @@ class Star {
   Star(float x, float y, float speed){
     this.y = y;
     // FLIP STAR MOVEMENTS
-    //if (this.y < height/2){
-    //  this.x = width-x;
-    //  this.speed = -1*speed;
-    //}
-    //else {
-    //  this.x = x;
-    //  this.speed = speed;
-    //}
-    this.x = x;
-    this.speed = speed;
+    if (this.y < height/2){
+      this.x = width-x;
+      this.speed = -1*speed;
+    }
+    else {
+      this.x = x;
+      this.speed = speed;
+    }
+    //this.x = x;
+    //this.speed = speed;
     this.radius = width/40;
     this.canCollide = true;
     String imgName = imgNames[(int)random(3)];
@@ -29,20 +29,20 @@ class Star {
   
   void move(){
     // FLIP OBSTACLES
-    //if (this.y < height/2 && this.x > width){
-    //  this.x = -5*width;   
-    //}
-    //else if (this.y > height/2 && this.x < 0) {
-    //  this.x = 5*width;  
-    //} 
+    if (this.y < height/2 && this.x > width){
+      this.x = -5*width;   
+    }
+    else if (this.y > height/2 && this.x < 0) {
+      this.x = 5*width;  
+    } 
     this.x -= speed;
     if (Math.abs(this.x-width/2) <= 15 && this.canCollide){
       if (this.y < height/2) checkCollision(animals[0]);
       else checkCollision(animals[1]);  
     }
-    else if (this.x < 0){
-      this.x = 5*width;  
-    }
+    //else if (this.x < 0){
+      //this.x = 5*width;  
+    //}
   }
   
   void checkCollision(Animal animal){
