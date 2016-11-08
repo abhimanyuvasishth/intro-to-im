@@ -6,23 +6,27 @@ class Star {
   boolean canCollide;
   PImage img;
   String[] imgNames = new String[]{"nuclear.jpg","stopsign.jpg","flattire.png"};
+  String[] flippedImages = new String[]{"nuclearFlipped.jpg","stopsignFlipped.jpg","flattireFlipped.png"};
   // The constructor
   Star(float x, float y, float speed){
     this.y = y;
+    String imgName = "ha";
     // FLIP STAR MOVEMENTS
     if (this.y < height/2){
       this.x = width-x;
       this.speed = -1*speed;
+      imgName = flippedImages[(int)random(3)];
     }
     else {
       this.x = x;
       this.speed = speed;
+      imgName = imgNames[(int)random(3)];
     }
     //this.x = x;
     //this.speed = speed;
     this.radius = width/40;
     this.canCollide = true;
-    String imgName = imgNames[(int)random(3)];
+    
     this.img = loadImage("data/" + imgName); 
     this.img.resize((int)this.radius,(int)this.radius);
   }
