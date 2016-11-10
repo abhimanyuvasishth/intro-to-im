@@ -52,10 +52,10 @@ class Animal{
       // The lives always show on the left of the player. The obstacles/stars
       // Move right to left.
       if (this.player == "Dog"){
-        image(lives, 50, maxY - height/30 - (i)*height/20);  
+        image(lives, (width/1200)*50, maxY - height/30 - (i)*height/20);  
       }
       else {
-        image(lives, width-50, minY +  (i)*height/20);  
+        image(lives, width-(width/1200)*50, minY +  (i)*height/20);  
       }
     }    
   }
