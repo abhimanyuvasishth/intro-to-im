@@ -1,11 +1,17 @@
 import processing.sound.*;
 
 float easing = 0.05;
+
+// Booleans that map to key pressed and released. This allows two people to hold
+// a key simultaneously without interrupting each other.
 boolean up = false, down = false, w = false, s = false;
 boolean right = false, left = false, a = false, d = false;
+
+// Booleans for the different stages of the game
 boolean gameOver = true, displayWinner = false, getReadyGo = false, intro = true;
 int readyTime, finishTime;
 
+// Images and image arrays for the story
 PImage cat, dog, bigCat, bigDog, bg;
 PImage[] cats = new PImage[5];
 PImage[] dogs = new PImage[5];
@@ -13,6 +19,7 @@ PImage[] dogs = new PImage[5];
 Animal winner;
 Animal[] animals = new Animal[2];
 
+// A counter to increment the story
 int countUp = 0, countDown = 0;
 
 int numStars = 100;
@@ -21,9 +28,11 @@ Star[] stars = new Star[numStars];
 void setup(){
   size(1200,1200);
   
+  // Initializing the Animals
   animals[0] = new Animal("Cat", this);
   animals[1] = new Animal("Dog", this);
   
+  // Initializing the images
   bg = loadImage("data/background600.jpg");
   bg.resize(width,height);
   cat = loadImage("data/squareCat.png");
@@ -43,6 +52,7 @@ void setup(){
   dogs[3] = loadImage("data/BossToDog600_2.png");
   dogs[4] = loadImage("data/DogToBoss600_2.png");
   
+  // Resizing the image to fit a dynamic width and height
   for (PImage dog: dogs){
     dog.resize((int)(width),(int)(height/2));  
   }
@@ -61,6 +71,7 @@ void setup(){
 
 void draw(){
   background(bg);
+  // Intro plays the introductory storyline before the game starts
   if (intro){
     image(cats[countUp],0,0);
     image(dogs[countDown],0,height/2);
@@ -74,6 +85,7 @@ void draw(){
       getReadyGo();
     }
   }
+  // The game has started!!
   else {
     for (int i = 0; i < numStars; i++){
       if (stars[i].x < width && stars[i].x > 0){
@@ -83,9 +95,8 @@ void draw(){
     }
     animals[0].display();
     animals[1].display();
-    //if (w) animals[0].move("up");
-    //if (s) animals[0].move("down");
-    // FLIP ANIMAL MOVEMENT
+    // Since the keyboards faced opposite directions, pressing w would make the 
+    // animal in the upper frame move down but up relative to the player 
     if (w) animals[0].move("down");
     if (s) animals[0].move("up");
     if (up) animals[1].move("up");
@@ -104,6 +115,8 @@ void getReadyGo(){
   getReadyGo = false;
 }
 
+// This function was taken out of the setup function so that the game could restart
+// Without stopping and starting it on processing
 void createStars(){
   for (int i = 0; i < numStars; i=i+2){
     float xPos = random(width,5*width);
@@ -123,7 +136,8 @@ void endGame(Animal loser){
   countDown = 0;
   intro = true;
   finishTime = millis();
-
+  
+  // Resetting the lives to 10
   for (Animal animal : animals){
     animal.numCollisions = 0;
     animal.y = (animal.player == "Cat") ? 0.25*height : 0.75* height;
@@ -134,6 +148,7 @@ void endGame(Animal loser){
   println("CAT: " + animals[0].score + " | DOG: " + animals[1].score);
 }
 
+// Displaying the winner with a flashy blue background
 void displayWinner(){
   if (millis() < finishTime + 1500){
     noStroke();
@@ -160,6 +175,8 @@ void keyPressed(){
   if (key=='d') d=true;
 }
 
+// The key released function is only called once so we could increment the 
+// counter that updates the story here
 void keyReleased(){
   if (keyCode == UP) up = false;
   if (keyCode==DOWN) down = false;
