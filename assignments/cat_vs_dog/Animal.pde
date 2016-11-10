@@ -48,14 +48,16 @@ class Animal{
     else fill(255,0,0,100);
     ellipse(width/2, this.y, this.radius, this.radius);
     image(img,width/2-img.width/2,this.y-img.height/2);
+    // Offset that sets the lives to a place near the player's left.
+    float offset = (50*width)/1200;
     for (int i = 0; i < 10-this.numCollisions; i++){
       // The lives always show on the left of the player. The obstacles/stars
       // Move right to left.
       if (this.player == "Dog"){
-        image(lives, (width/1200)*50, maxY - height/30 - (i)*height/20);  
+        image(lives, offset, maxY - height/30 - (i)*height/20);  
       }
       else {
-        image(lives, width-(width/1200)*50, minY +  (i)*height/20);  
+        image(lives, width-offset, minY +  (i)*height/20);  
       }
     }    
   }
