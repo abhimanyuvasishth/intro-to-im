@@ -3,10 +3,10 @@ class Star {
   float y;  
   float radius;
   float speed;
-  boolean canCollide;
   PImage img;
   String[] imgNames = new String[]{"nuclear.jpg","stopsign.jpg","flattire.png"};
   String[] flippedImages = new String[]{"nuclearFlipped.jpg","stopsignFlipped.jpg","flattireFlipped.png"};
+  boolean canCollide;
   
   // The constructor
   Star(float x, float y, float speed){
@@ -25,7 +25,6 @@ class Star {
     }
     this.radius = width/40;
     this.canCollide = true;
-    
     this.img = loadImage("data/" + imgName); 
     this.img.resize((int)this.radius,(int)this.radius);
   }
@@ -33,15 +32,19 @@ class Star {
   void move(){
     // The stars move right to left relative to the player
     if (this.y < height/2 && this.x > width){
-      this.x = -5*width;   
+      this.x = -5*width;
+      // Can collide with the same star once it loops around
+      this.canCollide = true;
     }
     else if (this.y > height/2 && this.x < 0) {
       this.x = 5*width;  
+      // Can collide with the same star once it loops around
+      this.canCollide = true;
     } 
     this.x -= speed;
     // We only check for collision when the obstacle is in a certain band
     // To reduce the total number of computations and make the game faster
-    if (Math.abs(this.x-width/2) <= 15 && this.canCollide){
+    if (Math.abs(this.x-width/2) <= (15*width)/600 && this.canCollide){
       if (this.y < height/2) checkCollision(animals[0]);
       else checkCollision(animals[1]);  
     }

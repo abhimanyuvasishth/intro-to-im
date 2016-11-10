@@ -26,7 +26,7 @@ int numStars = 100;
 Star[] stars = new Star[numStars];
 
 void setup(){
-  size(1200,1200);
+  size(600,600);
   
   // Initializing the Animals
   animals[0] = new Animal("Cat", this);
