@@ -26,6 +26,4 @@ class Bullet {
         this.isAlive = false;
       }
     }
-    
-    void collide(){}
 }

@@ -27,8 +27,4 @@ class Banknote {
         this.isAlive = false;
       }
     }
-    
-    void collide(){
-        
-    }     
 }

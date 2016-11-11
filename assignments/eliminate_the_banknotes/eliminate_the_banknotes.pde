@@ -31,12 +31,6 @@ void draw(){
   }
 }
 
-void mousePressed(){}
-
-void mouseReleased(){
-  weapon.fire();  
-}
-
 void keyPressed(){
   if (keyCode == LEFT) left = true;
   if (keyCode == RIGHT) right = true;
@@ -44,5 +38,6 @@ void keyPressed(){
 
 void keyReleased(){
   if (keyCode == LEFT) left = false;
-  if (keyCode == RIGHT) right = false;   
+  if (keyCode == RIGHT) right = false;
+  if (key == ' ') weapon.fire();
 }
