@@ -5,14 +5,14 @@ class Weapon {
     float h;
     
     Weapon(){
-      this.w = 75;
-      this.h = 25;
+      this.w = width/8;  // (75 for 600 width)
+      this.h = width/24; // (25 for 600 width)
       this.loc = new PVector(width/2-w, height-h);
       this.life = 100;
     }
     
     void display(){
-      fill(0);
+      fill(255);
       rect(this.loc.x, this.loc.y, w, h);
     }
     
@@ -27,6 +27,8 @@ class Weapon {
       Bullet bullet = new Bullet();
       aliveBullets.add(bullet);
       bulletCounter++;
-      println(bulletCounter);
+      if (bulletCounter >= totalBullets){
+        gameOver = true;  
+      }
     }
 }

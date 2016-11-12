@@ -3,18 +3,23 @@ class Banknote {
     PVector vel;
     float w, h;
     boolean isAlive;
+    PImage image;    
     
     Banknote(){
-      this.w = 40;
+      this.w = width/15; // (40 for 600 width) 
       this.loc = new PVector(random(width-this.w), random(-4*height, 0));
       this.vel = new PVector(0,random(1,2));
-      this.h = 20;
+      this.h = width/30; // (20 for 600 width)
+      this.image = loadImage("data/money.png");
+      this.image.resize((int)this.w,(int)this.h); 
       this.isAlive = true;
     }
     
     void display(){
-      fill(0,100,0);
+      noFill();
+      noStroke();
       rect(this.loc.x, this.loc.y, this.w, this.h);
+      image(this.image,this.loc.x,this.loc.y);
     }
     
     void move(){
@@ -25,6 +30,7 @@ class Banknote {
     void check(){
       if (this.loc.y > height){
         this.isAlive = false;
+        survivors++;
       }
     }
 }
