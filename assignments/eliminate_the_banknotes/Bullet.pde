@@ -28,6 +28,7 @@ class Bullet {
       for (Banknote note: aliveNotes){
         if (in(this.loc, note)){
           note.isAlive = false;
+          this.isAlive = false;
         }
       }
     }
