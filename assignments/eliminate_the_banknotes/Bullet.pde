@@ -22,7 +22,7 @@ class Bullet {
     }
     
     void check(){
-      if (this.loc.y > height){
+      if (this.loc.y < 0){
         this.isAlive = false;
       }
       for (Banknote note: aliveNotes){
@@ -38,8 +38,6 @@ class Bullet {
             center.y - note.loc.y < note.h + this.rad/2 && center.y - note.loc.y > - this.rad/2){
           return true;
         }
-        else {
-          return false;
-        }
+        else return false;
     }
 }

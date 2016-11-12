@@ -6,8 +6,8 @@ class Banknote {
     
     Banknote(){
       this.w = 40;
-      this.loc = new PVector(random(width-this.w), random(-5*height, 0));
-      this.vel = new PVector(0,random(2));
+      this.loc = new PVector(random(width-this.w), random(-4*height, 0));
+      this.vel = new PVector(0,random(1,2));
       this.h = 20;
       this.isAlive = true;
     }
