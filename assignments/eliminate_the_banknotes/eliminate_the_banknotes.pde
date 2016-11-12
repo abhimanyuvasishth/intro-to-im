@@ -22,13 +22,13 @@ void draw(){
     bullet.display();
     bullet.move();
   }
-  weapon.display();
   for (Banknote note : aliveNotes){
     if (note.isAlive){
       note.display();
       note.move();
     }
   }
+  weapon.display();
 }
 
 void keyPressed(){

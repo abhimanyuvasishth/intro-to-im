@@ -6,7 +6,7 @@ class Bullet {
     
     Bullet(){
       this.loc = new PVector(weapon.loc.x + weapon.w/2, weapon.loc.y);
-      this.vel = new PVector(0,-2);
+      this.vel = new PVector(0,-5);
       this.rad = 5; 
       this.isAlive = true;
     }
