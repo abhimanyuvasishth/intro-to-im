@@ -25,5 +25,20 @@ class Bullet {
       if (this.loc.y > height){
         this.isAlive = false;
       }
+      for (Banknote note: aliveNotes){
+        if (in(this.loc, note)){
+          note.isAlive = false;
+        }
+      }
+    }
+    
+    boolean in(PVector center, Banknote note){
+        if (center.x - note.loc.x < note.w + this.rad/2 && center.x - note.loc.x > - this.rad/2 &&
+            center.y - note.loc.y < note.h + this.rad/2 && center.y - note.loc.y > - this.rad/2){
+          return true;
+        }
+        else {
+          return false;
+        }
     }
 }
