@@ -23,6 +23,12 @@ class Weapon {
       if (this.loc.x > width-this.w) this.loc.x = width-this.w;
     }
     
+    void move(float speed){
+      this.loc.add(speed,0);
+      if (this.loc.x < 0) this.loc.x = 0;
+      if (this.loc.x > width-this.w) this.loc.x = width-this.w;
+    }
+    
     void fire(){
       Bullet bullet = new Bullet();
       aliveBullets.add(bullet);
