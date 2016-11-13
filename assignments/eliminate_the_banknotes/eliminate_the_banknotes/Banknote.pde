@@ -7,7 +7,7 @@ class Banknote {
     
     Banknote(){
       this.w = width/15; // (40 for 600 width) 
-      this.loc = new PVector(random(width-this.w), random(-4*height, 0));
+      this.loc = new PVector(random(width-this.w), random(-8*height, 0));
       this.vel = new PVector(0,0);
       this.vel.y = map(-1*this.loc.y, -4*height, 0,1,2);
       this.h = width/30; // (20 for 600 width)

@@ -1,3 +1,4 @@
+// Images: http://www.123rf.com/photo_8422535_indian-rupee-bank-notes-background.html
 // http://www.journaldev.com/378/java-util-concurrentmodificationexception
 import java.util.Iterator;
 import processing.serial.*;
@@ -9,13 +10,12 @@ ArrayList<Banknote> aliveNotes;
 boolean left, right;
 int bulletCounter, survivors, score, totalBullets;
 boolean gameOver;
-float mappedSpeed;
-float receiveSpeed;
-float launchTime;
+float mappedSpeed, receiveSpeed, launchTime;
+PImage bg;
 
 void setup(){
   size(600,600);
-  setupPort();
+  //setupPort();
   init();
 }
 
@@ -27,6 +27,8 @@ void setupPort(){
 }
 
 void init(){
+  bg = loadImage("data/bg.png");
+  bg.resize(width,height);
   weapon = new Weapon();
   receiveSpeed = 0;
   mappedSpeed = 0;
@@ -45,13 +47,39 @@ void init(){
 }
 
 void draw(){
-  background(255);
+  background(bg);
   if (gameOver){
-    text(score,width/2,height/4);
-    text(bulletCounter,width/2,height/2);
-    text(survivors,width/2,3*height/4);
+    if (score > 0){
+      fill(180,0,0);
+      textSize(100);
+      text("GAME OVER",width/35,height/2);
+      fill(128,0,0);
+      textSize(50);
+      text("SCORE: " + score,width/3.5,height*0.6);
+      fill(0,0,0);
+      textSize(20);
+      text("Tap the joystick to restart!",width/3.5,height*0.9);
+    }
+    else {
+      fill(128,0,0);
+      textSize(75);
+      text("ELIMINATE THE",width/25,height*0.45);
+      fill(180,0,0);
+      textSize(100);
+      text("BANKNOTES",width/75,height*0.6);
+      fill(0,0,0);
+      textSize(20);
+      text("Tap the joystick to restart!",width/3.5,height*0.9);
+    }
   }
   else {
+    fill(map(bulletCounter,0,100,0,255),0,0);
+    textSize(30);
+    int bullets = totalBullets-bulletCounter;
+    text("BULLETS: " + bullets,width*0.6,height*0.1);  
+    fill(0,0,128);
+    textSize(30);
+    text("SCORE: " + score,width*0.02,height*0.1);
     if (left) weapon.move("left");
     if (right) weapon.move("right");
     Iterator<Bullet> bulletIt = aliveBullets.iterator();
