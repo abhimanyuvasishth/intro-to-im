@@ -77,7 +77,7 @@ void draw(){
     textSize(30);
     int bullets = totalBullets-bulletCounter;
     text("BULLETS: " + bullets,width*0.6,height*0.1);  
-    fill(0,0,128);
+    fill(180,0,0);
     textSize(30);
     text("SCORE: " + score,width*0.02,height*0.1);
     if (left) weapon.move("left");
