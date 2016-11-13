@@ -12,7 +12,7 @@ class Weapon {
     }
     
     void display(){
-      fill(255);
+      fill(255,0,0);
       rect(this.loc.x, this.loc.y, w, h);
     }
     

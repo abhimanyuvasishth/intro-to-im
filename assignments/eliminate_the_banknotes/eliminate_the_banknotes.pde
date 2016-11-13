@@ -29,7 +29,7 @@ void init(){
 }
 
 void draw(){
-  background(0);
+  background(255);
   if (gameOver){
     text(score,width/2,height/4);
     text(bulletCounter,width/2,height/2);
@@ -40,20 +40,21 @@ void draw(){
     if (right) weapon.move("right");
     Iterator<Bullet> bulletIt = aliveBullets.iterator();
     while(bulletIt.hasNext()){
-      if (!bulletIt.next().isAlive) bulletIt.remove();
+      Bullet bullet = bulletIt.next();
+      if (!bullet.isAlive) bulletIt.remove();
+      else {
+        bullet.display();
+        bullet.move();
+      }
     }
     Iterator<Banknote> bankIt = aliveNotes.iterator();
     while(bankIt.hasNext()){
-      if (!bankIt.next().isAlive) bankIt.remove();
-    }
-    
-    for (Bullet bullet : aliveBullets){
-      bullet.display();
-      bullet.move();
-    }
-    for (Banknote note : aliveNotes){
-      note.display();
-      note.move();
+      Banknote note = bankIt.next();
+      if (!note.isAlive) bankIt.remove();
+      else {
+        note.display();
+        note.move();  
+      }
     }
     weapon.display();
     if (aliveNotes.size() == 0) gameOver = true;
