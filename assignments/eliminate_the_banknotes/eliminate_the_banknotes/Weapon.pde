@@ -31,7 +31,7 @@ class Weapon {
     
     void fire(){
       Bullet bullet = new Bullet();
-      aliveBullets.add(bullet);
+      additionalBullets.add(bullet);
       bulletCounter++;
       if (bulletCounter >= totalBullets){
         gameOver = true;  

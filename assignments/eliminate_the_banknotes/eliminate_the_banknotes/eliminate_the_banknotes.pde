@@ -6,6 +6,7 @@ import processing.serial.*;
 Serial myPort;
 Weapon weapon;
 ArrayList<Bullet> aliveBullets;
+ArrayList<Bullet> additionalBullets;
 ArrayList<Banknote> aliveNotes;
 boolean left, right;
 int bulletCounter, survivors, score, totalBullets;
@@ -33,6 +34,7 @@ void init(){
   receiveSpeed = 0;
   mappedSpeed = 0;
   aliveBullets = new ArrayList<Bullet>();
+  additionalBullets = new ArrayList<Bullet>();
   aliveNotes = new ArrayList<Banknote>();
   survivors = 0;
   score = 0;
@@ -82,6 +84,13 @@ void draw(){
     text("SCORE: " + score,width*0.02,height*0.1);
     if (left) weapon.move("left");
     if (right) weapon.move("right");
+    Iterator<Bullet> bulletAdd = additionalBullets.iterator();
+    while (bulletAdd.hasNext()){
+      Bullet bullet = bulletAdd.next();
+      aliveBullets.add(bullet);
+      bulletAdd.remove();
+    }
+    
     Iterator<Bullet> bulletIt = aliveBullets.iterator();
     while(bulletIt.hasNext()){
       Bullet bullet = bulletIt.next();
@@ -134,7 +143,7 @@ void serialEvent(Serial  myPort) {
     init();
     gameOver = false;
   }
-  if (float(list[2]) == 1 && millis() > launchTime + 100) {
+  if (float(list[2]) == 1 && millis() > launchTime + 50) {  
     weapon.fire();
     launchTime = millis();
   }
