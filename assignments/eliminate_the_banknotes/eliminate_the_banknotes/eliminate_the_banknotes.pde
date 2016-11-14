@@ -15,7 +15,7 @@ PImage bg;
 
 void setup(){
   size(600,600);
-  //setupPort();
+  setupPort();
   init();
 }
 
