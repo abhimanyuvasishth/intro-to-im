@@ -1,4 +1,4 @@
-Eliminate the Banknotes
+**Eliminate the Banknotes**
 
 Shoot down falling 500 rupee notes
 
