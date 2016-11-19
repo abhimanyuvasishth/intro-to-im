@@ -13,6 +13,7 @@ void setup(){
   background(255-255);
   loadSounds();
   fill(0);
+  stroke(255);
   size(600,600);
   boxSize = width/squares;
   buffer = width/(squares*2);
