@@ -8,8 +8,10 @@ float size = 600;
 int squares = 10;
 float boxSize, buffer, radBuffer, outerRad;
 SoundFile[] sounds;
+int[][] repeats;
 
 void setup(){
+  repeats = new int[squares][squares];
   background(255-255);
   loadSounds();
   fill(0);
@@ -51,10 +53,12 @@ void draw(){
     ellipse(boxSize*i+buffer, boxSize*j+buffer, outerRad, outerRad);
     // The sound has a pitch corresponding to the x-position of the deleted circle
     sounds[i].play();
+    repeats[i][j] = 0;
   }
   // Draws a new circle with probability 0.2
-  else if (random(1) > 0.8){
+  else if (random(1) > 0.8 && repeats[i][j] <= rad){
     noFill();
     ellipse(boxSize*i+buffer, boxSize*j+buffer, rad, rad);
+    repeats[i][j]++;
   }
 }
