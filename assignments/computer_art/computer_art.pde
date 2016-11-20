@@ -9,9 +9,11 @@ int squares = 10;
 float boxSize, buffer, radBuffer, outerRad;
 SoundFile[] sounds;
 int[][] repeats;
+int[][] max;
 
 void setup(){
   repeats = new int[squares][squares];
+  max = new int[squares][squares];
   background(255-255);
   loadSounds();
   fill(0);
@@ -25,6 +27,7 @@ void setup(){
   for (int i = 0; i < squares; i++){
     for (int j = 0; j < squares; j++){
       ellipse(boxSize*i+buffer, boxSize*j+buffer, outerRad, outerRad);
+      max[i][j] = int(random(outerRad-1));
     }
   }
 }
@@ -56,7 +59,7 @@ void draw(){
     repeats[i][j] = 0;
   }
   // Draws a new circle with probability 0.2
-  else if (random(1) > 0.8 && repeats[i][j] <= rad){
+  else if (random(1) > 0.8 && repeats[i][j] <= max[i][j]){
     noFill();
     ellipse(boxSize*i+buffer, boxSize*j+buffer, rad, rad);
     repeats[i][j]++;
