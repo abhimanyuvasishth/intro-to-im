@@ -1,4 +1,6 @@
-**The Interactive Portrait**
+#The Interactive Portrait
+
+My Introduction to Interactive Media Final Project, showcased on December 13 2016 in the NYUAD Arts Center.
 
 ![Alt text](installation.jpg?raw=true "The installation")
 
